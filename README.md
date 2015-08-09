@@ -20,7 +20,7 @@ Circle arc based control with selected number of leaves (like a pizza).
 - change the thickness of the drawing (draw full arc to the middle of the circle or just the border),
 - add text on each arc (round label),
 - customise details like shadows,
-- respond to tap on each leaf (blocks).
+- respond to tap on each leaf (take advantage of blocks).
 
 <p align="center" >
 <img src="https://raw.github.com/natalia-osa/NORosettaView/master/ReadmeImages/img1.png" alt="NORosettaView img1" title="NORosettaView" height="200">
@@ -28,10 +28,10 @@ Circle arc based control with selected number of leaves (like a pizza).
 <img src="https://raw.github.com/natalia-osa/NORosettaView/master/ReadmeImages/img3.png" alt="NORosettaView img1" title="NORosettaView" height="200">
 </p>
 
-##Implementation:
+## Implementation:
 Please refer to the demo for more in depth examples or check out source code.
 
-###NORVView
+### NORVView
 - actionBlock - Allows to react to user interaction (taps).
 ```objective-c
 [rosettaView setActionBlock:^(NORVView *view, NSUInteger selectedIndex) {
@@ -43,11 +43,11 @@ Please refer to the demo for more in depth examples or check out source code.
 ```objective-c
 [rosettaView setSelectedIndex:selectedIndex];
 ```
-- leaves - Determines number of arcs, colors, text etc. Refer to NORVLeaf documentation for more details.
+- leaves - Determines number of arcs, colors, text etc. Refer to [NORVLeaf documentation](https://github.com/natalia-osa/NORosettaView#norvleaf) for more details.
 ```objective-c
 [rosettaView setLeaves:@[leaf1, leaf2, leaf3]];
 ```
-- startAngle - Determines the position where to start drawing the arcs. Default 180, which is left middle.
+- startAngle - Determines the position where to start drawing the arcs. Default 180 degrees, which is left middle.
 ```objective-c
  [rosettaView setStartAngle:45.f];
 ```
@@ -71,7 +71,7 @@ Please refer to the demo for more in depth examples or check out source code.
 ```objective-c
  [rosettaView setShadowColor:[UIColor blackColor]];
 ```
-###NORVLeaf
+### NORVLeaf
 - rosettaLeafWithColor:selectedColor:circleTextView: - Convenience initializer for leaf objects, with basic setup.
 ```objective-c
 [NORVLeaf rosettaLeafWithColor:[UIColor grayColor]
@@ -85,12 +85,13 @@ Please refer to the demo for more in depth examples or check out source code.
 - selectedColor - Determines the color of the selected element.
 ```objective-c
  [leaf setSelectedColor:[UIColor blackColor]];
-```- circleTextView - Determines the label with rounded text.
+```
+- circleTextView - Determines the label with rounded text.
 ```objective-c
  [leaf.circleTextView setTextAttributes:(i == selectedIndex) ? selectedTextAttributes : textAttributes];
 ```
-###NORVCircleTextView
-Inherits from XMCircleTypeView (credits: https://github.com/MichMich/XMCircleType). Is used to display the text on each leaf.
+### NORVCircleTextView
+Inherits from XMCircleTypeView (credits: [XMCircleType](https://github.com/MichMich/XMCircleType)). Is used to display the text on each leaf.
 - rosettaCircleText:withTextAttributes: -  Convenience initializer for text with attrubutes.
 ```objective-c
 [NORVCircleTextView rosettaCircleText:NSLocalizedString(@"Quite Long Button", nil)
