@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <XMCircleType/XMCircleTypeView.h>
 
-#define radians(x) (x * M_PI / 180)
-#define degrees(x) (x * 180 / M_PI)
-
 @interface NORVCircleTextView : XMCircleTypeView
 
 /**

@@ -1,5 +1,5 @@
 //
-//  ExampleViewController.h
+//  Example2ViewController.h
 //  RosettaView
 //
 //  Created by Natalia Osiecka on 25.3.2015.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExampleViewController : UIViewController
+@interface Example2ViewController : UIViewController
 
 @end
 

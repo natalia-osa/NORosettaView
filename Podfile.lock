@@ -1,5 +1,5 @@
 PODS:
-  - NOCategories (0.4.0)
+  - NOCategories (0.4.2)
   - XMCircleType (1.1.1)
 
 DEPENDENCIES:
@@ -7,7 +7,7 @@ DEPENDENCIES:
   - XMCircleType
 
 SPEC CHECKSUMS:
-  NOCategories: 21990aac52255ebbbb293f580ad1210d2f076d3c
+  NOCategories: 14bcd2572a9093129aa2d616ceb86bb1531cd0d6
   XMCircleType: 5400d1ac7ac308853d240644d538d4fcfd06c808
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.38.2

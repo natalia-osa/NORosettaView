@@ -1,5 +1,5 @@
 //
-//  ExampleView.h
+//  Example2View.h
 //  RosettaView
 //
 //  Created by Natalia Osiecka on 25.3.2015.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NORVView.h"
 
-@interface ExampleView : UIView
+@interface Example2View : UIView
 
 @property(nonatomic, readonly) NORVView *outerCircle;
 @property(nonatomic, readonly) NORVView *middleCircle;

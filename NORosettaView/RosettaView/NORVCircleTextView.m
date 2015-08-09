@@ -7,6 +7,7 @@
 //
 
 #import "NORVCircleTextView.h"
+#import <NOCategories/NOCCGFloatMath.h>
 
 @implementation NORVCircleTextView
 
@@ -17,7 +18,7 @@
     [circleTextView setTextAttributes:textAttributes];
     [circleTextView setTextAlignment:NSTextAlignmentCenter];
     [circleTextView setVerticalTextAlignment:XMCircleTypeVerticalAlignCenter];
-    [circleTextView setBaseAngle:radians(270.f)];
+    [circleTextView setBaseAngle:noc_radians(270.f)];
     [circleTextView setCharacterSpacing:0.85f];
     [circleTextView setUserInteractionEnabled:YES];
     

@@ -1,27 +1,27 @@
 //
-//  ExampleViewController.m
+//  Example2ViewController.m
 //  RosettaView
 //
 //  Created by Natalia Osiecka on 25.3.2015.
 //  Copyright (c) 2015 iOskApps. All rights reserved.
 //
 
-#import "ExampleViewController.h"
-#import "ExampleView.h"
+#import "Example2ViewController.h"
+#import "Example2View.h"
 
-@interface ExampleViewController ()
+@interface Example2ViewController ()
 
-@property(nonatomic, weak, readonly) ExampleView *aView;
+@property(nonatomic, weak, readonly) Example2View *aView;
 
 @end
 
-@implementation ExampleViewController
+@implementation Example2ViewController
 
 #pragma mark - Memory Management
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.title = NSLocalizedString(@"RosettaView", nil);
+        self.title = NSLocalizedString(@"Advanced", nil);
     }
     
     return self;
@@ -31,7 +31,7 @@
 
 - (void)loadView {
     CGRect rect = [[UIScreen mainScreen] applicationFrame];
-    ExampleView *view = [[ExampleView alloc] initWithFrame:rect];
+    Example2View *view = [[Example2View alloc] initWithFrame:rect];
     [view setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
     
     // local for easier access
@@ -47,7 +47,7 @@
     [self configureOuterCircleWithColor:transparentGray selectedColor:transparentBlack];
     [self configureMiddleCircleWithColor:transparentGray];
     [self configureCenterCircleWithColor:transparentGray];
-    [self configureFullCircleWithColor:transparentBlack selectedColor:[UIColor redColor]];
+    [self configureFullCircleWithColor:transparentGray selectedColor:[UIColor redColor]];
     
     // select one view
     [self selectIndex:1 ofView:self.aView.outerCircle];
@@ -96,20 +96,13 @@
 
 - (void)configureFullCircleWithColor:(UIColor *)color selectedColor:(UIColor *)selectedColor {
     NORVLeaf *leaf = [NORVLeaf rosettaLeafWithColor:color selectedColor:selectedColor circleTextView:nil];
-    [self.aView.fullCircle setLeaves:@[leaf,
-                                       leaf,
-                                       leaf,
-                                       leaf,
-                                       leaf,
-                                       leaf]];
+    [self.aView.fullCircle setLeaves:@[leaf, leaf, leaf, leaf, leaf, leaf]];
     [self.aView.fullCircle setStartAngle:182.f];
     [self.aView.fullCircle setMarginAngle:5.f];
     [self.aView.fullCircle setTotalAngle:356.f];
     
-    __weak typeof(self) weakSelf = self;
     [self.aView.fullCircle setActionBlock:^(NORVView *view, NSUInteger selectedIndex) {
         [view setSelectedIndex:selectedIndex];
-        [weakSelf updateView:view withSelectedIndex:selectedIndex];
     }];
 }
 

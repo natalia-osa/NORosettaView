@@ -8,6 +8,7 @@
 
 #import "NORVView.h"
 #import <NOCategories/NOCMacros.h>
+#import <NOCategories/NOCCGFloatMath.h>
 
 @implementation NORVView
 
@@ -36,20 +37,15 @@
     [self setBackgroundColor:[UIColor clearColor]];
     
     // set default values
-    _leaves = @[[NORVLeaf rosettaLeafWithColor:[UIColor yellowColor]
-                                 selectedColor:[UIColor blackColor]
-                                circleTextView:[NORVCircleTextView rosettaCircleText:@"1" withTextAttributes:nil]],
-                [NORVLeaf rosettaLeafWithColor:[UIColor redColor]
-                                 selectedColor:[UIColor blackColor]
-                                circleTextView:[NORVCircleTextView rosettaCircleText:@"2" withTextAttributes:nil]],
-                [NORVLeaf rosettaLeafWithColor:[UIColor blueColor]
-                                 selectedColor:[UIColor blackColor]
-                                circleTextView:[NORVCircleTextView rosettaCircleText:@"3" withTextAttributes:nil]]];
+    _leaves = @[];
     _startAngle = 180.0;
     _totalAngle = 180.f;
     _marginAngle = 2.f;
     _thickness = 10.f;
     _selectedIndex = -1;
+    _shadowWidth = 0;
+    
+    _shadowColor = [UIColor clearColor];
 }
 
 #pragma mark - Setters / Getters
@@ -95,6 +91,11 @@
     [self setNeedsDisplay];
 }
 
+- (void)setShadowColor:(UIColor *)shadowColor {
+    _shadowColor = shadowColor;
+    [self setNeedsDisplay];
+}
+
 #pragma mark - Layout
 
 - (void)layoutSubviews {
@@ -129,8 +130,8 @@
     NSUInteger currentIndex = 0;
     for (NORVLeaf *rosettaLeaf in self.leaves) {
         UIColor *leafColor = (currentIndex == self.selectedIndex) ? rosettaLeaf.selectedColor : rosettaLeaf.color;
-        [self drawColor:leafColor atCenter:[self circleCenter] withRadius:[self radius] fromAngle:radians(startAngle) toEndAngle:radians((startAngle + viewAngle)) inContext:context];
-        [rosettaLeaf.circleTextView setBaseAngle:radians((startAngle + viewAngle / 2.f))];
+        [self drawColor:leafColor atCenter:[self circleCenter] withRadius:[self radius] fromAngle:noc_radians(startAngle) toEndAngle:noc_radians((startAngle + viewAngle)) inContext:context];
+        [rosettaLeaf.circleTextView setBaseAngle:noc_radians((startAngle + viewAngle / 2.f))];
         
         startAngle = startAngle + self.marginAngle + viewAngle;
         currentIndex += 1;
@@ -141,6 +142,7 @@
     CGContextBeginPath(context);
     CGContextSetStrokeColorWithColor(context, color.CGColor);
     CGContextAddArc(context, center.x, center.y, radius, startAngle, endAngle, NO);
+    CGContextSetShadowWithColor(context, CGSizeMake(0.f, 0.f), self.shadowWidth, self.shadowColor.CGColor);
     CGContextStrokePath(context);
 }
 
@@ -181,7 +183,7 @@
 - (CGFloat)pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint)endingPoint {
     CGPoint originPoint = CGPointMake(endingPoint.x - startingPoint.x, endingPoint.y - startingPoint.y);
     CGFloat bearingRadians = atan2f(originPoint.y, originPoint.x);
-    CGFloat bearingDegrees = degrees(bearingRadians);
+    CGFloat bearingDegrees = noc_degrees(bearingRadians);
     bearingDegrees = bearingDegrees > 0.0 ? bearingDegrees : (360.0 + bearingDegrees);
     
     return bearingDegrees;
@@ -200,10 +202,12 @@
         CGFloat touchAngle = [self pointPairToBearingDegrees:circleCenter secondPoint:touchPoint];
         CGFloat viewAngle = [self viewAngle];
         
-        NSInteger touchedView = noc_floorCGFloat((touchAngle - self.startAngle) / (viewAngle + self.marginAngle));
+        CGFloat relativeTouchAngle = touchAngle - self.startAngle;
+        relativeTouchAngle = relativeTouchAngle > 0.0 ? relativeTouchAngle : (360.0 + relativeTouchAngle);
+        NSInteger touchedView = noc_floorCGFloat(relativeTouchAngle / (viewAngle + self.marginAngle));
         
         // user may have only 1 view, rest is without leaves -> don't react to touch there
-        if (touchedView >= 0 && touchedView < self.leaves.count) {
+        if (touchedView < self.leaves.count) {
             return touchedView;
         }
     }
@@ -216,18 +220,26 @@
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *result = [super hitTest:point withEvent:event];
     
+    BOOL touchedSubview = NO;
+    for (UIView *view in self.subviews) {
+        if (view == result) {
+            touchedSubview = YES;
+            break;
+        }
+    }
+    
     BOOL isViewTapped = ([self viewIndexForPoint:point] != NSNotFound);
-    if (result == self && isViewTapped) {
-        return nil;
-    } else {
+    if ((result == self || touchedSubview) && isViewTapped) {
         return result;
+    } else {
+        return nil;
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
     
-    if (self.actionBlock != NULL) {
+    if (self.actionBlock) {
         CGPoint touchPoint = [[touches anyObject] locationInView:self];
         NSInteger touchedViewIndex = [self viewIndexForPoint:touchPoint];
         if (touchedViewIndex != NSNotFound) {

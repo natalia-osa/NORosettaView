@@ -35,13 +35,13 @@
 @property(nonatomic) CGFloat startAngle;
 
 /**
- *  Defines the area where to spread the views in degrees. Eg 180 will fill half of the circle. 
+ *  Defines the area where to spread the views in degrees. Eg 180 will fill half of the circle.
  *  Default 180.f.
  */
 @property(nonatomic) CGFloat totalAngle;
 
 /**
- *  Defines clear space between leafs in degrees. 
+ *  Defines clear space between leafs in degrees.
  *  Default 2.f.
  */
 @property(nonatomic) CGFloat marginAngle;
@@ -51,5 +51,15 @@
  *  Default 10.f.
  */
 @property(nonatomic) CGFloat thickness;
+
+/**
+ *  If more than 0, shadow on the circle is drawn. Default 0.
+ */
+@property(nonatomic) NSUInteger shadowWidth;
+
+/**
+ *  You need to set shadowWidth to > 0 to see the shadow. Color of the shadow. Default clearColor.
+ */
+@property(nonatomic) UIColor *shadowColor;
 
 @end

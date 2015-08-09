@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "ExampleViewController.h"
+#import "Example1ViewController.h"
+#import "Example2ViewController.h"
 
 @implementation AppDelegate
 
@@ -18,9 +19,15 @@
     [self.window makeKeyAndVisible];
     
     // create the controllers
-    UIViewController *viewController = [[ExampleViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self.window setRootViewController:navigationController];
+    UIViewController *viewController1 = [[Example1ViewController alloc] init];
+    UINavigationController *navigationController1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
+    
+    UIViewController *viewController2 = [[Example2ViewController alloc] init];
+    UINavigationController *navigationController2 = [[UINavigationController alloc] initWithRootViewController:viewController2];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    [tabBarController setViewControllers:@[navigationController1, navigationController2]];
+    [self.window setRootViewController:tabBarController];
     
     return YES;
 }
