@@ -1,0 +1,2 @@
+pod 'XMCircleType'
+pod 'NOCategories'
