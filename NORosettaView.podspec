@@ -12,4 +12,10 @@ Pod::Spec.new do |spec|
   spec.source_files = 'NORosettaView/RosettaView/*.{h,m}'
 
   spec.frameworks   = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore']
+
+  # link with modules
+  spec.subspec 'Core' do |cs|
+    cs.dependency 'XMCircleType'
+    cs.dependency 'NOCategories'
+  end
 end
