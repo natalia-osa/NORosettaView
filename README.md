@@ -3,9 +3,32 @@
 ![License](https://img.shields.io/badge/license-Apache_2-green.svg?style=flat)
 
 # NORosettaView
-Circle arc based control with selected number of leafs (pizza style).
+Circle arc based control with selected number of leaves (like a pizza).
 
-##Customisable:
+## Examples:
+<p align="center" >
+<img src="https://raw.github.com/natalia-osa/NORosettaView/master/ReadmeImages/Fullscreen.png" alt="NORosettaView" title="NORosettaView" height="480">
+<img src="https://raw.github.com/natalia-osa/NORosettaView/master/ReadmeImages/Fullscreen2.png" alt="NORosettaView" title="NORosettaView" height="480">
+</p>
+
+## Customisable outlook:
+- set the angle where to start drawing (eg draw from top),
+- set the total angle of the drawing (eg 180 degrees, so half of the circle),
+- set number of arcs to display,
+- change size of the margin between arcs,
+- customise the background color of selected and not selected arc,
+- change the thickness of the drawing (draw full arc to the middle of the circle or just the border),
+- add text on each arc (round label),
+- customise details like shadows,
+- respond to tap on each leaf (blocks).
+
+<p align="center" >
+<img src="https://raw.github.com/natalia-osa/NORosettaView/master/ReadmeImages/img1.png" alt="NORosettaView img1" title="NORosettaView" height="200">
+<img src="https://raw.github.com/natalia-osa/NORosettaView/master/ReadmeImages/img2.png" alt="NORosettaView img1" title="NORosettaView" height="200">
+<img src="https://raw.github.com/natalia-osa/NORosettaView/master/ReadmeImages/img3.png" alt="NORosettaView img1" title="NORosettaView" height="200">
+</p>
+
+##Implementation:
 Please refer to the demo for more in depth examples or check out source code.
 
 ###NORVView
@@ -14,7 +37,8 @@ Please refer to the demo for more in depth examples or check out source code.
 [rosettaView setActionBlock:^(NORVView *view, NSUInteger selectedIndex) {
     [view setSelectedIndex:selectedIndex];
     [weakSelf updateView:view withSelectedIndex:selectedIndex];
-}];```
+}];
+```
 - selectedIndex - Determines the index of selected arc in the circle.
 ```objective-c
 [rosettaView setSelectedIndex:selectedIndex];
