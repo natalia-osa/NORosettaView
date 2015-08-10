@@ -129,3 +129,7 @@ Available under the Apache 2.0 license. See the LICENSE file for more info.
 ## Requirements
 
 Requires Xcode 6, targeting either iOS 6.0 or higher.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/natalia-osa/norosettaview/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
