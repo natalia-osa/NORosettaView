@@ -112,7 +112,7 @@ git submodule update
 ```
 Copy all files from NORosettaView/RosettaView folder.
 #### Just download & attach
-This is strongly misadvised as you won't be able to see code updates. Clone or download the source, copy all files from NOCategories folder.
+This is strongly misadvised as you won't be able to see code updates. Clone or download the source, copy all files from RosettaView folder.
 
 ## ChangeLog
 - 0.1 Added basic project, configured styling, added first cocoapod.
